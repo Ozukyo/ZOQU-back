@@ -19,4 +19,4 @@ app.get("/announcements", async (req, res) => {
 
 
 
-app.listen(PORT, () => console.log(`server started on port ${PORT}...`))
+app.listen(PORT, () => console.log(`Server started on port ${PORT}...`))
