@@ -11,13 +11,23 @@ const userDao = {
     },
 
     addUser: async (user) => {
-        const queryResult = await pool.query("INSERT INTO users  (user_email, user_password, user_personal_information_id, user_adress_id) VALUES ($1, $2, $3, $4)",
-            [user.user_email, user.user_password, user.user_personal_information_id, user.user_adress_id])
+        const addUserQueryResult = await pool.query("INSERT INTO users  (user_email, user_password) VALUES ($1, $2)",
+            [user.user_email, user.user_password]);
+        const userId = await userDao.getLastUserId.bind(this);
+        console.log(userId);
+
+        const addPersonalInfoQuery = await pool.query("INSERT INTO personal_information (user_id, personal_information_first_name, personal_information_last_name) VALUES ($1, $2, $3)", [userId,user.pi_firstname, user.pi_lastname])
+
     },
 
     deleteUserById: async (id) => {
         const queryResult = await pool.query("DELETE FROM users WHERE user_id = $1", [id]);
     },
+
+    getLastUserId: async() => {
+        const queryResult = await pool.query("SELECT user_id FROM users ORDER BY user_id DESC LIMIT 1");
+        return queryResult.rows[0];
+    }
 
 }
 module.exports = userDao;

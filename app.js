@@ -10,11 +10,28 @@ app.use(express.json());
 
 app.use('/', user);
 
-app.get("/users/:id",async (req, res) =>{
-    const {id} = req.params;
+
+app.post("/users", async (req, res) => {
+    console.log(req.body.email);
+    try {
+        let usertoAdd = {
+            user_email: req.body.email,
+            user_password: req.body.password,
+            pi_firstname: req.body.firstname,
+            pi_lastname: req.body.lastname
+        };
+        const user = await userDao.addUser(usertoAdd);
+        res.json(user);
+    } catch (err) {
+        console.log(err.message);
+    }
+})
+
+
+app.get("/id",async (req, res) =>{
     try{
-       const users = await userDao.getUserById(id);
-       res.json(users)
+       const id = await userDao.getLastUserId();
+       res.json(id)
     }catch(err){
         console.log(err.message);
     }
