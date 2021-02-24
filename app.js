@@ -7,9 +7,7 @@ const user = require("./routes/user");
 
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
-
 app.use('/', user);
-
 
 app.post("/users", async (req, res) => {
     console.log(req.body.email);
@@ -26,17 +24,32 @@ app.post("/users", async (req, res) => {
         console.log(err.message);
     }
 })
-
-
-app.get("/id",async (req, res) =>{
-    try{
-        const id = await userDao.getLastUserId();
-        res.json(id)
-    }catch(err){
+app.post("/users/:id/address", async (req, res) => {
+    try {
+        let address = {
+            street: req.body.street,
+            buildingNumber: req.body.buildingNumber,
+            flatNumber: req.body.flatNumber,
+            postalCode: req.body.postalCode,
+            city: req.body.city,
+            country: req.body.country
+        };
+        const id = req.params.id;
+        const userAddress = await userDao.addUserAddressById(id, address);
+        res.json(userAddress);
+    } catch (err) {
         console.log(err.message);
     }
 });
 
+app.get("/id", async (req, res) => {
+    try {
+        const id = await userDao.getLastUserId();
+        res.json(id)
+    } catch (err) {
+        console.log(err.message);
+    }
+});
 
 // get announcements test
 app.get("/announcements", async (req, res) => {
@@ -46,9 +59,17 @@ app.get("/announcements", async (req, res) => {
     } catch (err) {
         console.log(err.message);
     }
-})
+});
 
-
+app.delete("/users/:id", async (req, res) => {
+    try {
+        const {id} = req.params
+        await userDao.deleteUserById(id);
+        res.send("User Deleted !")
+    } catch (err) {
+        console.log(err.message);
+    }
+});
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}...`))
 
