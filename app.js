@@ -9,7 +9,7 @@ app.use(express.json());
 app.get("/users/:id",async (req, res) =>{
     const {id} = req.params;
     try{
-       const users = await userDao.getUser(id);
+       const users = await userDao.getUserById(id);
        res.json(users)
     }catch(err){
         console.log(err.message);
