@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use('/', user);
 
+
 app.post("/users", async (req, res) => {
     console.log(req.body.email);
     try {
@@ -21,6 +22,16 @@ app.post("/users", async (req, res) => {
         const user = await userDao.addUser(usertoAdd);
         res.json(user);
     } catch (err) {
+        console.log(err.message);
+    }
+})
+
+
+app.get("/id",async (req, res) =>{
+    try{
+       const id = await userDao.getLastUserId();
+       res.json(id)
+    }catch(err){
         console.log(err.message);
     }
 })
@@ -72,4 +83,3 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}...`))
-
