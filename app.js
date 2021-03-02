@@ -3,23 +3,13 @@ const app = express();
 
 const pool = require("./dao/poolDb");
 const userDao = require("./dao/userDao")
-const categoriesDao = require("./dao/categoriesDao")
 const user = require("./routes/user");
+const category = require("./routes/category");
 
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use('/', user);
-
-
-
-app.get("/categories", async(req, res) => {
-    try {
-        const categories = await categoriesDao.getAllCategories();
-        res.json(categories);
-    } catch (err) {
-        console.log(err.message);
-    }
-})
+app.use('/', category);
 
 
 

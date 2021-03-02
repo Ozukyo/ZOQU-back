@@ -3,15 +3,20 @@ const pool = require("./poolDb");
 const categoriesDao = {
     getAllCategories: async () => {
         const queryResult = await pool.query("SELECT * from categories");
-        // const queryResult = await pool.query("WITH RECURSIVE category_tree (id, category_name, parent) " +
-        //     "AS (SELECT id, category_name, ARRAY[id] FROM categories WHERE parent_id IS NULL " +
-        //     "UNION ALL SELECT categories.id, categories.category_name, parent || categories.id FROM category_tree " +
-        //     "JOIN categories " +
-        //     "ON categories.parent_id=category_tree.id " +
-        //     "WHERE NOT categories.id = ANY(parent)) " +
-        //     "SELECT * FROM category_tree ORDER BY id");
         return queryResult.rows;
     },
+    getAllMainCategories: async () => {
+        const queryResult = await pool.query("SELECT category_name from categories WHERE parent_id is null ");
+        return queryResult.rows;
+    },
+    getCategoryById: async (id) => {
+        const queryResult = await pool.query("SELECT * from categories WHERE id = $1", [id]);
+        return queryResult.rows;
+    },
+    getCategoriesByParentId: async(parentId) => {
+        const queryResult = await pool.query("SELECT * from categories WHERE parent_id =$1", [parentId]);
+        return queryResult.rows;
+    }
 }
 
 module.exports = categoriesDao;
