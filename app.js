@@ -3,13 +3,16 @@ const app = express();
 
 const pool = require("./dao/poolDb");
 const userDao = require("./dao/userDao")
+const cors = require('cors');
 const user = require("./routes/user");
 const category = require("./routes/category");
+const announcement = require("./routes/announcement");
 
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
-app.use('/', user);
-app.use('/', category);
+app.use('/', cors(),user);
+app.use('/', cors(), category);
+app.use('/', cors(), announcement);
 
 
 

@@ -12,7 +12,7 @@ router.get("/categories", async(req, res) => {
     }
 })
 
-router.get("/categories/main-categories", async(req, res) => {
+router.get("/main-categories", async(req, res) => {
     try {
         const categories = await categoriesDao.getAllMainCategories();
         res.json(categories);
