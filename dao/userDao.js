@@ -31,6 +31,5 @@ const userDao = {
         const queryResult = await pool.query("SELECT user_id FROM users ORDER BY user_id DESC LIMIT 1");
         return queryResult.rows.shift();
     }
-
 }
 module.exports = userDao;
