@@ -6,7 +6,7 @@ const categoriesDao = {
         return queryResult.rows;
     },
     getAllMainCategories: async () => {
-        const queryResult = await pool.query("SELECT category_name from categories WHERE parent_id is null ");
+        const queryResult = await pool.query("SELECT * from categories WHERE parent_id is null ");
         return queryResult.rows;
     },
     getCategoryById: async (id) => {

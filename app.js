@@ -5,11 +5,13 @@ const pool = require("./dao/poolDb");
 const userDao = require("./dao/userDao")
 const user = require("./routes/user");
 const category = require("./routes/category");
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
+app.use(cors());
 app.use(express.json());
-app.use('/', user);
-app.use('/', category);
+app.use('/',cors(), user);
+app.use('/', cors(), category);
 
 
 
