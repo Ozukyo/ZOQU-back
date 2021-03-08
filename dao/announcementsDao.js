@@ -7,7 +7,7 @@ const announcementsDao = {
     },
 
     getAnnouncementById: async(id) => {
-        const queryResult = await pool.query("SELECT * from announcements WHERE annoucement_id= $1", [id]);
+        const queryResult = await pool.query("SELECT * from announcements WHERE id= $1", [id]);
         return queryResult.rows.shift();
     },
 
@@ -17,8 +17,8 @@ const announcementsDao = {
     },
 
     addAnnouncement: async(announcement) => {
-    const queryResult = await pool.query("INSERT INTO announcements (announcment_publish_date, announcment_title" +
-        ", announcement_category_id, announcment_description, announcment_price, announcement_details_id, " +
+    const queryResult = await pool.query("INSERT INTO announcements (announcement_publish_date, announcement_title" +
+        ", announcement_category_id, announcement_description, announcement_price, announcement_details_id, " +
         "announcement_views, announcement_is_active) " +
         "VALUES($1, $2, $3, $4, $5, $6, $7, $8)",
         [announcement.publishDate, announcement.title, announcement.categoryId, announcement.description,
@@ -26,7 +26,7 @@ const announcementsDao = {
     },
 
     deleteAnnouncementById: async(id) => {
-        const queryResult = await pool.query("DELETE FROM announcements WHERE annoucement_id=$1", [id]);
+        const queryResult = await pool.query("DELETE FROM announcements WHERE id=$1", [id]);
     }
 
 }
