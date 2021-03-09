@@ -9,6 +9,10 @@ const userDao = {
         const queryResult = await pool.query("SELECT * FROM users WHERE user_id = $1", [id]);
         return queryResult.rows.shift();
     },
+    getUserByEmail: async (email) => {
+        const queryResult = await pool.query("SELECT * FROM users WHERE user_email = $1", [email]);
+        return queryResult.rows.shift();
+    },
 
     addUser: async (user) => {
         const addUserQueryResult = await pool.query("INSERT INTO users  (user_email, user_password) VALUES ($1, $2) RETURNING user_id",

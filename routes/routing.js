@@ -3,7 +3,10 @@ const router = express.Router();
 const announcementController = require('../controllers/announcement.controller');
 const categoriesController = require('../controllers/category.controller');
 const userController = require('../controllers/user.controller');
+const loginController = require('../controllers/login.controller');
 
+
+// want to get autenticate? -put  loginController.autenticateToken between path and method
 router.get("/announcements", announcementController.getAnnouncements);
 router.get("/announcements/:id", announcementController.getAnnouncementById);
 router.get("/announcements/category/:categoryId",  announcementController.getAnnouncementByCategoryId);
@@ -19,7 +22,6 @@ router.post("/users", userController.addUser);
 router.get("/users/:id", userController.getUserById);
 router.post("/users/:id/address", userController.addUserAddressById);
 router.delete("/users/:id", userController.deleteUserById);
-
-
+router.post("/login",loginController.login);
 
 module.exports = router;
