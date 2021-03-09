@@ -1,4 +1,7 @@
 const userDao = require('../dao/userDao');
+const loginController = require('./login.controller');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const userController = {
     getAllUsers: async (req, res) => {
@@ -13,7 +16,7 @@ const userController = {
         try {
             let usertoAdd = {
                 user_email: req.body.email,
-                user_password: req.body.password,
+                user_password: await loginController.hashPassword(req.body.password),
                 pi_firstname: req.body.firstname,
                 pi_lastname: req.body.lastname
             };
@@ -59,7 +62,6 @@ const userController = {
         }
     }
 }
-
 
 module.exports = userController;
 
