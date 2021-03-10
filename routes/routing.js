@@ -11,6 +11,7 @@ router.get("/announcements", announcementController.getAnnouncements);
 router.get("/announcements/:id", announcementController.getAnnouncementById);
 router.get("/announcements/category/:categoryId",  announcementController.getAnnouncementByCategoryId);
 router.post("/announcements", announcementController.addAnnouncement);
+router.get("/announcements/allByCategory/:id", announcementController.getAllAnnouncementsByAllCategories);
 
 router.get("/categories", categoriesController.getAllCategories)
 router.get("/main-categories", categoriesController.getMainCategories)
@@ -23,5 +24,6 @@ router.get("/users/:id", userController.getUserById);
 router.post("/users/:id/address", userController.addUserAddressById);
 router.delete("/users/:id", userController.deleteUserById);
 router.post("/login",loginController.login);
+
 
 module.exports = router;

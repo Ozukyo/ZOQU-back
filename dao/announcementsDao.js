@@ -12,9 +12,13 @@ const announcementsDao = {
     },
 
     getAnnouncementByCategoryId: async(categoryId) => {
-        const queryResult = await pool.query("SELECT * from announcements WHERE announcement_category_id= $1", [categoryId]);
+        const queryResult = await pool.query("SELECT * from announcements WHERE category_id= $1", [categoryId]);
         return queryResult.rows;
     },
+
+    // getAllAnnouncementsByCategoryId : async (categoryId) => {
+    //
+    // },
 
     addAnnouncement: async(announcement) => {
     const queryResult = await pool.query("INSERT INTO announcements (announcement_publish_date, announcement_title" +
@@ -30,6 +34,5 @@ const announcementsDao = {
     }
 
 }
-
 
 module.exports = announcementsDao;
