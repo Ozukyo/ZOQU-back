@@ -13,11 +13,11 @@ const loginController = {
             if (user === null) {
                 res.status(401);
             }
-            if (!await comparePassword(password, user.user_password)) {
+            if (!await comparePassword(password, user.password)) {
                 res.status(401);
             }
             const payload = {
-                email: user.user_email
+                email: user.email
             }
             res.json(generateAccessToken(payload));
         } catch (error) {
