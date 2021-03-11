@@ -13,6 +13,13 @@ const userDao = {
         const queryResult = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
         return queryResult.rows.shift();
     },
+    getUserDataByEmail: async(email) =>{
+        const queryResult = await pool.query("SELECT users.id, users.email, personal_information.first_name, personal_information.last_name, " +
+            "personal_information.phone_number, personal_information.web_page, personal_information.description FROM users " +
+            "LEFT JOIN personal_information ON users.id = personal_information.user_id" +
+            " WHERE users.email = $1", [email]);
+        return queryResult.rows.shift();
+    },
 
     addUser: async (user) => {
         const addUserQueryResult = await pool.query("INSERT INTO users  (email, password) VALUES ($1, $2) RETURNING id",
