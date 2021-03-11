@@ -61,30 +61,27 @@ const announcementController = {
         try {
             const {id} = req.params;
             const categoriesList = await categoriesDao.getCategoriesByParentId(id)
-                .then(result2lvl => {
+                .then(secondLvlCategories => {
                     const internalList = [+id];
-                    // console.log(result2lvl);
-                    result2lvl.forEach(item => {
-                        internalList.push(item.id);
-                        categoriesDao.getCategoriesByParentId(item.id).then(result3lvl => {
-                            // console.log(result3lvl);
-                            result3lvl.forEach(item3lvl => {
-                                // console.log(item3lvl);
-                                internalList.push(item3lvl.id);
-                                console.log(categoriesList);
+                    secondLvlCategories.forEach(category => {
+                        internalList.push(category.id);
+                        categoriesDao.getCategoriesByParentId(category.id).then(thirdLvlCategories => {
+                            thirdLvlCategories.forEach(subcategory => {
+                                internalList.push(subcategory.id);
                             })
                         })
                     });
                     return internalList;
                 })
-            res.send(categoriesList);
+            setTimeout(() => {
+                res.send(categoriesList);
+            }, 1000);
         } catch (error) {
             console.log(error.message)
         }
     }
 }
 
-// pobrac produkty wszystkie w tej liscie
 
 //select * from products where category_id IN [1,2,3]
 
