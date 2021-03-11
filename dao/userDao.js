@@ -24,7 +24,7 @@ const userDao = {
     addUser: async (user) => {
         const addUserQueryResult = await pool.query("INSERT INTO users  (email, password) VALUES ($1, $2) RETURNING id",
             [user.user_email, user.user_password]);
-        console.log(addUserQueryResult.rows.shift());
+        // console.log(addUserQueryResult.rows.shift().id);
         const userId = addUserQueryResult.rows.shift().id;
         const addPersonalInfoQuery = await pool.query("INSERT INTO personal_information (user_id, first_name, last_name) VALUES ($1, $2, $3)", [userId, user.pi_firstname, user.pi_lastname])
     },
