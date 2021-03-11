@@ -60,6 +60,24 @@ const userController = {
         } catch (err) {
             console.log(err.message);
         }
+    },
+    getUserByEmail: async (req, res) => {
+        try {
+            const email = req.params.email;
+            const user = await userDao.getUserByEmail(email);
+            res.json(user);
+        } catch (err) {
+            console.error(err.message);
+        }
+    },
+    getUserDataByEmail: async (req, res) => {
+        try {
+            const email = req.params.email;
+            const user = await userDao.getUserDataByEmail(email);
+            res.json(user);
+        } catch (err) {
+            console.error(err.message);
+        }
     }
 }
 
