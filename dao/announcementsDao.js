@@ -16,9 +16,10 @@ const announcementsDao = {
         return queryResult.rows;
     },
 
-    // getAllAnnouncementsByCategoryId : async (categoryId) => {
-    //
-    // },
+    getAllAnnouncementsByCategoryId : async (categoriesId) => {
+        const queryResult = await pool.query("SELECT * FROM announcements WHERE category_id IN ($1)", [categoriesId]);
+        return queryResult.rows;
+    },
 
     addAnnouncement: async(announcement) => {
     const queryResult = await pool.query("INSERT INTO announcements (announcement_publish_date, announcement_title" +

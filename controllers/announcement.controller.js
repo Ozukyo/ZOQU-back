@@ -60,29 +60,48 @@ const announcementController = {
     getAllAnnouncementsByAllCategories: async (req, res) => {
         try {
             const {id} = req.params;
-            const categoriesList = await categoriesDao.getCategoriesByParentId(id)
-                .then(secondLvlCategories => {
-                    const internalList = [+id];
-                    secondLvlCategories.forEach(category => {
-                        internalList.push(category.id);
-                        categoriesDao.getCategoriesByParentId(category.id).then(thirdLvlCategories => {
-                            thirdLvlCategories.forEach(subcategory => {
-                                internalList.push(subcategory.id);
-                            })
-                        })
-                    });
-                    return internalList;
-                })
-            setTimeout(() => {
-                res.send(categoriesList);
-            }, 1000);
+            const secondCategoriesList = await categoriesDao.getCategoriesByParentId(id)
+                .then(data => data.map(category => category.id));
+            let arrOfCategoriesId = [+id, ...secondCategoriesList]
+
+            for (categoryId of secondCategoriesList) {
+                const thirdCategoriesList1 = await categoriesDao.getCategoriesByParentId(categoryId)
+                    .then(data => data.map(category => category.id));
+                arrOfCategoriesId.push(...thirdCategoriesList1)
+            }
+
+            const announcements = await announcementsDao.getAllAnnouncementsByCategoryId(arrOfCategoriesId);
+            console.log(arrOfCategoriesId)
+            res.send(announcements);
         } catch (error) {
             console.log(error.message)
         }
+
+
+        // try {
+        //     const {id} = req.params;
+        //     const categoriesList = await categoriesDao.getCategoriesByParentId(id)
+        //         .then(secondLvlCategories => {
+        //             const internalList = [+id];
+        //             secondLvlCategories.forEach(category => {
+        //                 internalList.push(category.id);
+        //                 categoriesDao.getCategoriesByParentId(category.id).then(thirdLvlCategories => {
+        //                     thirdLvlCategories.forEach(subcategory => {
+        //                         internalList.push(subcategory.id);
+        //                     })
+        //                 })
+        //             });
+        //             return internalList;
+        //         })
+        //     setTimeout(() => {
+        //         res.send(categoriesList);
+        //     }, 1000);
+        // } catch (error) {
+        //     console.log(error.message)
+        // }
     }
 }
 
 
-//select * from products where category_id IN [1,2,3]
 
 module.exports = announcementController;
