@@ -71,13 +71,10 @@ const announcementController = {
             }
 
             const announcements = await announcementsDao.getAllAnnouncementsByCategoryId(arrOfCategoriesId);
-            console.log(arrOfCategoriesId)
             res.send(announcements);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-
-
         // try {
         //     const {id} = req.params;
         //     const categoriesList = await categoriesDao.getCategoriesByParentId(id)
