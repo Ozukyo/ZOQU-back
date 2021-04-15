@@ -1,5 +1,5 @@
-const announcementsDao = require("../dao/announcementsDao");
-const categoriesDao = require("../dao/categoriesDao");
+const announcementsDao = require('../dao/announcementsDao');
+const categoriesDao = require('../dao/categoriesDao');
 
 const announcementController = {
     getAnnouncements: async (req, res) => {
@@ -98,7 +98,5 @@ const announcementController = {
         // }
     }
 }
-
-
 
 module.exports = announcementController;
