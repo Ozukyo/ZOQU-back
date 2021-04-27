@@ -8,15 +8,17 @@ const loginController = require('../controllers/login.controller');
 
 // want to get autenticate? -put  loginController.autenticateToken between path and method
 router.get("/announcements", announcementController.getAnnouncements);
+router.get("/announcements/random", announcementController.getRandomAnnouncements);
 router.get("/announcements/:id", announcementController.getAnnouncementById);
 router.get("/announcements/category/:categoryId",  announcementController.getAnnouncementByCategoryId);
 router.post("/announcements", announcementController.addAnnouncement);
 router.get("/announcements/allByCategory/:id", announcementController.getAllAnnouncementsByAllCategories);
+// router.post("/announcements/allByCategory/:id", announcementController);
 
-router.get("/categories", categoriesController.getAllCategories)
-router.get("/main-categories", categoriesController.getMainCategories)
-router.get("/categories/:id", categoriesController.getCategoriesById)
-router.get("/categories/:parentId/subcategories", categoriesController.getCategoriesByParentId)
+router.get("/categories", categoriesController.getAllCategories);
+router.get("/main-categories", categoriesController.getMainCategories);
+router.get("/categories/:id", categoriesController.getCategoriesById);
+router.get("/categories/:parentId/subcategories", categoriesController.getCategoriesByParentId);
 
 router.get("/users", userController.getAllUsers);
 router.post("/users", userController.addUser);
