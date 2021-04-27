@@ -10,8 +10,8 @@ const announcementController = {
             console.error(err.message);
         }
     },
-    getRandomAnnouncements: async (req,res) => {
-        try{
+    getRandomAnnouncements: async (req, res) => {
+        try {
             const randomAnnouncements = await announcementsDao.getRandomAnnouncements(6);
             res.json(randomAnnouncements);
         } catch (err) {
@@ -106,5 +106,4 @@ const announcementController = {
         // }
     }
 }
-
-module.exports = announcementController;
+ module.exports = announcementController;
