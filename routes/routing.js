@@ -26,6 +26,7 @@ router.get("/users/:id", userController.getUserById);
 router.post("/users/:id/address", userController.addUserAddressById);
 router.delete("/users/:id", userController.deleteUserById);
 router.get("/users/email/:email",userController.getUserDataByEmail);
+router.get("/users/profil/:id",userController.getUserDataById);
 router.post("/login",loginController.login);
 
 
