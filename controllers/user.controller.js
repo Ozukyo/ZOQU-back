@@ -78,6 +78,15 @@ const userController = {
         } catch (err) {
             console.error(err.message);
         }
+    },
+    getUserDataById: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const user = await userDao.getUserDataById(id);
+            res.json(user);
+        } catch (err) {
+            console.error(err.message);
+        }
     }
 }
 
