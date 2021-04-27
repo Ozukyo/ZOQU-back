@@ -10,6 +10,14 @@ const announcementController = {
             console.error(err.message);
         }
     },
+    getRandomAnnouncements: async (req,res) => {
+        try{
+            const randomAnnouncements = await announcementsDao.getRandomAnnouncements(6);
+            res.json(randomAnnouncements);
+        } catch (err) {
+            console.log(err.message);
+        }
+    },
     getAnnouncementById: async (req, res) => {
         try {
             const id = req.params.id;

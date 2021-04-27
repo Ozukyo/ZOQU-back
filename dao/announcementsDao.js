@@ -5,6 +5,10 @@ const announcementsDao = {
         const queryResult = await pool.query("SELECT * from announcements");
         return queryResult.rows;
     },
+    getRandomAnnouncements: async (amount) => {
+        const queryResult = await pool.query("SELECT * from announcements ORDER BY RANDOM() LIMIT $1",[amount]);
+        return queryResult.rows;
+    },
 
     getAnnouncementById: async (id) => {
         const queryResult = await pool.query("SELECT * from announcements WHERE id= $1", [id]);
